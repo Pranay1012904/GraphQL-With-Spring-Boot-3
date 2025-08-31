@@ -7,9 +7,7 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.HashMap;
-import java.util.Hashtable;
 
 @DgsComponent
 public class FakeAdditionalRequestDataResolver {
