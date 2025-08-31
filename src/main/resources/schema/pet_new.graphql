@@ -1,0 +1,29 @@
+"""ENUM 2"""
+enum NewPetFoodType{
+    HERBIVORE, CARNIVORE, OMNIVORE
+}
+
+interface Pet2{
+    name:String
+    breed:String
+    food:PetFoodType
+}
+
+type Dog2 implements Pet2{
+    name:String
+    breed:String
+    food:PetFoodType
+    coatLength:String
+    size:String
+}
+
+type Cat2 implements Pet2{
+    name:String
+    breed:String
+    food:PetFoodType
+    registry:String
+}
+
+input NewPetFilter{
+    newPetType:String
+}
