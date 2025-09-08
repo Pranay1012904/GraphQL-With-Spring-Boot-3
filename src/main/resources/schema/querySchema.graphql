@@ -1,5 +1,6 @@
 scalar Url
 scalar Date
+scalar DateTime
 scalar NonNegativeInt
 
 
@@ -14,13 +15,30 @@ type Query{
     smartSearch(keyword: String): [SmartSearchResult]
     smartSearchResult2(keyword:String): [SmartSearchResult2]
     onAdditionalRequest: String
+    me:User!
+    problemLatestList:[Problem!]
+    searchItem(filter:SearchItemFilter):[SearchableItems]
+    problemDetails(id:ID!):Problem!
 }
-
+"""me->currently loggedIn User"""
 type Mutation{
     addHello(helloInput:HelloInput!):Int
     replaceHelloText(helloInput:HelloInput!):[Hello]
     #deleteHello(number:Int!):Int
     #replaceHelloText(text:String!, index:Int!):[Hello]
+    createUser(user:UserCreateInput):UserResponse
+    userLogin(user: UserLoginInput):UserResponse!
+    userActivation(user:UserActivationInput!):UserActivationResponse
+    createProblem(problem:CreateProblemInput):ProblemResponse!
+    createSolution(solution:CreateSolutionInput):SolutionResponse!
+    solutionVote(vote: SolutionVoteInput):SolutionResponse!
+}
+
+type Subscription{
+    #randomStock:Stock
+    problemAdded:Problem!
+    solutionVoteChanged(solutionId:ID!): Solution
+
 }
 
 union SmartSearchResult = Hello | Book

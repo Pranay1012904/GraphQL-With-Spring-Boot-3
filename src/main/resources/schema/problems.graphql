@@ -1,0 +1,106 @@
+type User{
+    id:ID!
+    username:String!
+    email:String!
+    avatar:Url
+    createDateTime:DateTime!
+    problems:[Problem!]
+}
+""" prettyCreatedDateTime -> 2 Days ago, 1 month ago etc.... """
+type Problem implements SearchableItems{
+    id:ID!
+    createdDateTime:DateTime!
+    prettyCreatedDateTime:String
+    title:String!
+    content:String!
+    tags:[String!]!
+    solutionCount:NonNegativeInt!
+    Author:User!
+    solution:[Solution!]
+}
+
+type Solution implements SearchableItems{
+    id:ID!
+    createdDateTime:DateTime!
+    prettyCreatedDateTime:String
+    content:String!
+    category:SolutionCategory!
+    voteAsGoodCount:NonNegativeInt
+    voteAsBadCount:NonNegativeInt
+    Author:User!
+}
+
+type UserAuthToken{
+    authToken: String
+    expiryTime: DateTime
+}
+
+enum SolutionCategory{
+    EXPLANATION
+    REFERENCE
+}
+
+interface SearchableItems{
+    id:ID!
+    createdDateTime:DateTime!
+    prettyCreatedDateTime:String
+    content:String!
+    Author:User!
+}
+
+input SearchItemFilter{
+    keyword:String
+}
+
+input UserCreateInput{
+    username:String!
+    email:String!
+    password:String!
+    displayName:String
+    avatar:Url
+
+}
+
+input UserLoginInput{
+    username:String!
+    password:String!
+}
+
+input UserActivationInput{
+    username:ID!
+    active:Boolean!
+}
+
+input CreateProblemInput{
+    title:String!
+    content:String!
+    tags:[String!]!
+}
+
+input CreateSolutionInput{
+    content:String!
+    category:SolutionCategory!
+    problemId:ID!
+}
+
+input SolutionVoteInput{
+    solutionId:ID!
+    voteAsGood:Boolean
+}
+
+type UserResponse{
+    user:User
+    authToken:UserAuthToken
+}
+
+type SolutionResponse{
+    solution:Solution
+}
+
+type ProblemResponse{
+    problem:Problem
+}
+
+type UserActivationResponse{
+    isActive: Boolean
+}
